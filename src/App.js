@@ -31,8 +31,9 @@ function App() {
     async function fetchHandler(){
       let data= await fetchApi(country,query);
       console.log(data);
-      let {coord, weather, main, wind, sys, name, dt, timezone}= data;
+      let {coord, weather, main, wind, sys, name, dt}= data;
       dt= Number(dt);
+      let [timezone, hourlyData, dailyData]= await fetchApiWeather(coord.lat, coord.lon, query);
       setInputs([coord.lon, coord.lat,weather[0].description, weather[0].icon, main.temp, main.feels_like, main.temp_min,main.temp_max, main.humidity, wind.speed, sys.sunrise, sys.sunset , name, dt, timezone]);
       console.log(dt, timezone );
       
@@ -41,7 +42,6 @@ function App() {
     setSunrise(formatToLocalTime(sys.sunrise, timezone, "hh:mm a"));
     setSunSet(formatToLocalTime(sys.sunset, timezone, "hh:mm a"));
   
-    let [hourlyData, dailyData]= await fetchApiWeather(coord.lat, coord.lon, query);
       console.log(hourlyData);
       setHourlyData(hourlyData);
       setDailyData(dailyData);

@@ -11,7 +11,7 @@ export async function fetchApiWeather(lat, lon, query){
     let data= await response.json();
     let hourlyData= data.hourly.slice(1, 6);
     let dailyData= data.daily.slice(1, 6);
-    return[hourlyData, dailyData];
+    return[data.timezone, hourlyData, dailyData];
 }
 export  function formatToLocalTime(secs, timeZone, format= "cccc, dd LLL yyyy' | Local Time : 'hh:mm a"){
     return (DateTime.fromSeconds(secs).setZone(timeZone).toFormat(format));
