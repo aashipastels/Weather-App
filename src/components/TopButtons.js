@@ -1,6 +1,6 @@
 import React from 'react'
 
-function TopButtons() {
+function TopButtons(props) {
 
     const cities= [
         {
@@ -34,10 +34,14 @@ function TopButtons() {
         
         }
     ]
+    function clickHandler(eee){
+        const country= eee.target.name;
+        props.clickHandler(country);
+    }
   return (
     <div className="flex justify-around items-center my-6">
     {cities.map((item)=>{
-        return <button className='text-white text-lg font-medium'>{item.title}</button>
+        return <button onClick={clickHandler} name= {item.title}className='text-white text-lg font-medium'>{item.title}</button>
     })}</div>
   )
 }
